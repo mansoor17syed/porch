@@ -3132,6 +3132,10 @@ func (t *PorchSuite) TestCreatePackageRevisionRollback() {
 	ctx := context.Background()
 	packageName := "test-package-rollback"
 	workspaceName := "test-workspace-rollback"
+	repositoryName := "test-repo"
+
+	// Register the repository first
+	t.RegisterMainGitRepositoryF(repositoryName)
 
 	// Create a package revision with invalid task configuration
 	// that will cause task application to fail
@@ -3147,7 +3151,7 @@ func (t *PorchSuite) TestCreatePackageRevisionRollback() {
 		Spec: porchapi.PackageRevisionSpec{
 			PackageName:    packageName,
 			WorkspaceName:  workspaceName,
-			RepositoryName: "test-repo",
+			RepositoryName: repositoryName,
 			Tasks: []porchapi.Task{
 				{
 					Type: porchapi.TaskTypeClone,
